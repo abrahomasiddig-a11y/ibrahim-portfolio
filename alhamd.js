@@ -1,73 +1,63 @@
-// 1. تحديد العناصر من الـ HTML
-const contactForm = document.getElementById('my-contact-form');
-const formStatus = document.getElementById('form-status');
-const submitBtn = document.getElementById('submit-btn');
+const contactForm = document.getElementById("contactForm");
 
-// 2. استماع لحدث إرسال الفورم (Submit)
-contactForm.addEventListener('submit', async function(event) {
-  // منع السلوك الافتراضي للمتصفح (إعادة تحميل الصفحة)
-  event.preventDefault(); 
-  
-  // تغيير نص الزر أثناء الإرسال لإعطاء انطباع للمستخدم أن هناك عملية تتم
-  submitBtn.innerText = "Sending...";
-  submitBtn.disabled = true; // تعطيل الزر مؤقتاً لمنع الضغط المتكرر
+contactForm.addEventListener("submit", function (event) {
 
-  // تجميع بيانات الفورم تلقائياً
-  const formData = new FormData(contactForm);
+    const name =
+        document.getElementById("name").value.trim();
 
-  // 3. إرسال البيانات إلى السيرفر (Formspree API)
-  try {
-    // استبدل الرابط أدناه بالرابط الذي حصلت عليه من حسابك في Formspree
-    const response = await fetch('https://formspree.io/f/xaqgorvk', {
-      method: 'POST',
-      body: formData,
-      headers: {
-        'Accept': 'application/json'
-      }
-    });
+    const email =
+        document.getElementById("email").value.trim();
 
-    // 4. التعامل مع استجابة السيرفر
-    if (response.ok) {
-      // إذا تم الإرسال بنجاح
-      formStatus.innerText = "Thank you! Your message has been sent successfully. 🎉";
-      formStatus.style.color = "#2ecc71"; // لون أخضر نجاح
-      contactForm.reset(); // تفريغ الحقول بعد الإرسال
-    } else {
-      // إذا كان هناك خطأ في السيرفر
-      const data = await response.json();
-      if (data.errors) {
-        formStatus.innerText = data.errors.map(error => error.message).join(", ");
-      } else {
-        formStatus.innerText = "Oops! There was a problem submitting your form.";
-      }
-      formStatus.style.color = "#e74c3c"; // لون أحمر خطأ
+    const service =
+        document.getElementById("service").value;
+
+    const message =
+        document.getElementById("message").value.trim();
+
+
+    // Basic validation
+
+    if (name.length < 2) {
+
+        event.preventDefault();
+
+        alert("Please enter your name.");
+
+        return;
     }
-  } catch (error) {
-    // في حال حدوث مشكلة في الاتصال أو الشبكة
-    formStatus.innerText = "Network error. Please check your connection.";
-    formStatus.style.color = "#e74c3c";
-  } finally {
-    // إعادة الزر لحالته الطبيعية بعد انتهاء العملية بالكامل
-    submitBtn.innerText = "sen message ✅";
-    submitBtn.disabled = false;
-  }
+
+
+    if (!email.includes("@")) {
+
+        event.preventDefault();
+
+        alert("Please enter a valid email address.");
+
+        return;
+    }
+
+
+    if (!service) {
+
+        event.preventDefault();
+
+        alert("Please select a service.");
+
+        return;
+    }
+
+
+    if (message.length < 10) {
+
+        event.preventDefault();
+
+        alert("Please provide more details about your project.");
+
+        return;
+    }
+
+
+    // If everything is valid,
+    // allow Formspree to receive the form.
+
 });
-
-/* make nav dispear when scrolling */
-let prevScrollPos = window.pageYOffset;
-const navbar = document.getElementById("navbar");
-
-window.onscroll = function() {
-  let currentScrollPos = window.pageYOffset;
-  
-  if (prevScrollPos < currentScrollPos) {
-    // scrolling down → hide navbar
-    navbar.style.top = "-80px";
-  } else {
-    // scrolling up → show navbar
-    navbar.style.top = "0";
-  }
-  
-  prevScrollPos = currentScrollPos;
-};
-
