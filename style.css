@@ -328,13 +328,23 @@ html {
     filter: drop-shadow(0 4px 6px rgba(0, 210, 255, 0.5));
 }
 @media (max-width: 768px) {
-    .hero_text {
-        margin-top: 90px;
+    .hero_text h1 {
+        font-size: 24px;
+        line-height: 1.2;
+        margin-top: 10px;
         align-items: center;
         justify-content: center;
     }
+    .hero_text p{
+        font-size: 16px;
+        line-height: 1.7;
+    }
     .about-content h3{
         margin-top: 15px;
+    }
+    .hero-tech-stack h3 {
+        font-size: 21px;
+        color: #fff;
     }
 }
 
