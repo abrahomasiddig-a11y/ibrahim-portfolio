@@ -1647,11 +1647,18 @@ label:hover {
     .contact-form {
         width: 100%;
     }
+    .full-email {
+        display: none;
+    }
 }
-
-
 *{
     box-sizing: border-box;
+}
+.email-address-on-mobile {
+    color: #fff;
+}
+.email-address-on-mobile:hover {
+    color: var(--accent-yellow);
 }
     /*
     
