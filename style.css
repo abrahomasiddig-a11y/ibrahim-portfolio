@@ -44,6 +44,29 @@ button {
 body {
     font-family: 'Poppins', sans-serif;
 }
+
+
+/* الحالة الابتدائية للعنصر قبل ظهوره */
+.reveal {
+    opacity: 0;
+    transform: translateY(40px); /* إزاحة للأسفل بمقدار 40 بكسل */
+ transition: all 0.8s ease-out; /* نعومة الحركة ومدتها */
+}
+
+/* الحالة عند ظهور العنصر على الشاشة */
+.reveal.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* (اختياري) لتأخير ظهور العناصر التي بجانب بعضها واحد تلو الآخر */
+.delay-1 { transition-delay: 0.2s; }
+.delay-2 { transition-delay: 0.4s; }
+.delay-3 { transition-delay: 0.6s; }
+
+
+
+
 html, body {
     width: 100%;
     max-width: 100%;
@@ -338,6 +361,7 @@ html {
     flex-wrap: wrap;
 }
 .about-image{
+    position: relative;
     width: 350px;
     height: 450px;
     border-radius: 20px;
@@ -346,15 +370,37 @@ html {
     overflow: hidden;
 }
 .about-image img{
+    object-position: top;
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform .4s ease;
 }
-.name-under {
-    color: #94a3b8;
-    margin-top: 20px;
+.name-overlay {
+    backdrop-filter: blur(3px);
     position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    padding: 15px 10px;
+    text-align: center;
+    background: linear-gradient(to top, rgba(5,15,35,0.6));
+    border-top: 1px solid rgba(0,195,255,0.3);
+}
+.name-overlay h3{
+    letter-spacing: 0.5;
+    margin: 0;
+    font-size: 1.2rem;
+    color: #ffffff;
+    font-weight: 700;
+}
+.name-overlay span {
+    letter-spacing: 0.5;
+    font-weight: 600;
+    margin-top: 4px;
+    display: block;
+    font-size: 0.85rem;
+    color: #00c3ff;
 }
 .about-image:hover img {
     transform: scale(1.05);
@@ -373,7 +419,8 @@ html {
 }
 .about-content h3 {
     color: rgb(203, 232, 17);
-    font-size: 1.5rem;
+    font-size: 1.25rem;
+    line-height: 1.4;
 }
 #h2 {
     color: #afb7c3;
